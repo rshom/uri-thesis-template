@@ -1,0 +1,157 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+% Combine the electronics layout into a master hardware/elex layout diagram (serves both purposes) and maybe make the light circuit an inset.  Plus the image of the roadkill.
+% For the single-pour diagram, just show the top and side views, and include units.  Then put a nice close-up image next to the diagrams.
+% Write the methods section as a very short paragraph or two just stating the materials/printer/code/libraries you used.  The rest are Results.
+% In all the papers you cite that you are co-author, use a superscript number/symbol and a page footer to say ‘R. Shomberg is co-author’.  You want to make it clear in the chapter that you worked on all of those papers.
+
+\documentclass[
+  10pt,
+  draftcls,
+  technote,
+  letterpaper,
+  oneside,
+  onecolumn]{IEEEtran}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+%% Extra package includes
+\usepackage[nopostdot,nogroupskip,nonumberlist]{glossaries}
+
+
+\input{glossary}
+
+\let\subparagraph\paragraph
+% Comment out these lines to put sub headers back
+\renewcommand{\paragraph}[1]{}
+\renewcommand{\subparagraph}[1]{}
+\renewcommand{\paragraph}[1]{}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{ref.bib}
+
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Multiple-View Camera System Utilizing Network-Enabled DEEPi Cameras},
+  pdfauthor={Russell Shomberg1,; Brennan Phillips2,1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Multiple-View Camera System Utilizing Network-Enabled DEEPi
+Cameras}
+\author{Russell Shomberg\textsuperscript{1,*} \and Brennan Phillips\textsuperscript{2,1}}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\textsuperscript{1} College of Engineering, University of Rhode Island,
+RI, USA\\
+\textsuperscript{2} Graduate School of Oceanography, University of Rhode
+Island, RI, USA
+
+\textsuperscript{*} Correspondence:
+\href{mailto:rshomberg@uri.edu}{Russell Shomberg
+\textless{}rshomberg@uri.edu\textgreater{}}
+
+
+
+\input{body}
+
+% \hypertarget{acknowledgments}{%
+% \section{Acknowledgments}\label{acknowledgments}}
+
+% \begin{itemize}
+% \tightlist
+% \item
+%   R/V Stommel
+% \item
+%   Big Game?
+% \item
+%   Matt and Christine at Juice for equipment
+% \item
+%   401 tech bridge
+% \item
+%   Tim Noyes
+% \item
+%   Brian
+% \end{itemize}
+
+% \hypertarget{references}{%
+% \section*{References}\label{references}}
+% \addcontentsline{toc}{section}{References}
+
+\printbibliography
+
+% \appendix
+
+% \hypertarget{appendix}{%
+% \section{Appendix}\label{appendix}}
+
+
+\end{document}

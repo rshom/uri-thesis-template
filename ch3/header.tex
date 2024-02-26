@@ -1,0 +1,41 @@
+%% Extra package includes
+\usepackage[nopostdot,nogroupskip,nonumberlist]{glossaries}
+\usepackage{siunitx}
+\let\DeclareUSUnit\DeclareSIUnit
+\let\US\SI
+\let\us\si
+\DeclareUSUnit\inch{in.}
+\DeclareUSUnit\atm{atm.}
+\DeclareUSUnit\pound{lb.}
+\DeclareUSUnit\foot{ft.}
+
+\input{glossary}
+
+%% Fixes long table error with two columns
+%% \makeatletter
+%% \let\oldlt\longtable
+%% \let\endoldlt\endlongtable
+%% \def\longtable{\@ifnextchar[\longtable@i \longtable@ii}
+%% \def\longtable@i[#1]{\begin{figure}[t]
+%% \onecolumn
+%% \begin{minipage}{0.5\textwidth}
+%% \setlength{\LTcapwidth}{\linewidth}
+%% \oldlt[#1]
+%% }
+%% \def\longtable@ii{\begin{figure}[t]
+%% \onecolumn
+%% \begin{minipage}{0.5\textwidth}
+%% \oldlt
+%% }
+%% \def\endlongtable{\endoldlt
+%% \end{minipage}
+%% \twocolumn
+%% \end{figure}}
+%% \makeatother
+
+\let\subparagraph\paragraph
+
+% Comment out these lines to put sub headers back
+\renewcommand{\subsection}[1]{}
+\renewcommand{\subsubsection}[1]{}
+\renewcommand{\paragraph}[1]{}

@@ -1,0 +1,1530 @@
+\hypertarget{ch1:introduction}{%
+\section{Introduction}\label{ch1:introduction}}
+
+We developed and deployed an improved deep sea hydraulic engine
+(Fig.~\ref{ch1:fig:teaser}) for \glspl{FEA}. The engine is designed to deploy on
+small deep sea platforms such as science class \glspl{ROV}. The design can be
+adapted and optimized for different use cases.  The prototype successfully tested with multiple
+actuators \cite{becker2020mechanically,teeple2020multi} 
+which were operated at depth on multiple
+deployments with work-class \glspl{ROV}. During these trials, the prototype engine successfully
+demonstrated biological sampling capabilities.
+
+\begin{figure}
+\hypertarget{ch1:fig:teaser}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{actuation.png}
+\caption{Prototype deep sea hydraulic drive demonstrating actuation of a
+\gls{FEA} manipulator \cite{teeple2020multi} in the unactuated position (top) and the
+actuated position (bottom). The system fully actuates in under \SI{1}{\second}.}\label{ch1:fig:teaser}
+}
+\end{figure}
+
+\hypertarget{ch1:importance}{%
+\subparagraph{Importance}\label{ch1:importance}}
+
+We focused on \glspl{FEA} over other soft robotic options due to their ease of
+manufacturing, pressure tolerance,and low-cost 
+\cite{yin2023rapid}\footnote{\textcite{yin2023rapid}: R. Shomberg is co-author (see appendix)}.
+While \gls{FEA} manipulators have been shown to have applications in underwater
+sampling \cite{gruber2022advances,mazzeo2022marine,galloway2016soft, subad2021soft, liu2020underwater, tessler2020ultra}, and
+bio-mimicry \cite{marchese2014autonomous, chen2022neural, katzschmann2016cyclic, tan2021underwater}, the size and power
+requirements of currently available deep sea drives limit deployments to
+large platforms with large support vessels mitigating many of the
+advantages to using soft robotics. The improved drive is more compact
+and draws less power than previous engines enabling soft robotics to be
+deployed on smaller platforms. Reducing platform sizes also reduces or
+eliminates support vessel requirements significantly reducing operation
+costs \cite{amon2022deep}. The size and power reduction also allows larger
+platforms to more easily deploy a soft robotic system alongside other
+equipment. Thus the improved drive enables a range of new applications
+for underwater soft robotics.
+
+
+
+\hypertarget{ch1:related-work}{%
+\paragraph{Related Work}\label{ch1:related-work}}
+
+\hypertarget{ch1:standard-practice}{%
+\subparagraph{Standard Practice}\label{ch1:standard-practice}}
+
+Soft robotics are primarily used in factory or lab settings and powered
+pneumatically a centralized compressor which distributes air to as many
+actuators as needed \cite{xavier2022soft, walker2020soft}. 
+The compressor builds and stores a large volume of high pressure air. 
+The \glspl{FEA} are generally actuated by feed-backwards control 
+using solenoids and pressure limiting valves close to the actuator \cite{walker2020soft}. Actuation rates depend on the pressure differential and tubing diameters. 
+Feed-forward volume control is rarely used due to the compressibility of air
+and simplicity of measuring air pressure. 
+Research on actuation rate optimization has focused on actuator design \cite{xavier2022soft} 
+rather than drive improvements.
+
+While pneumatic soft actuators report high power densities, the
+centralized compressor is not usually accounted for in power density or
+efficiency calculations \cite{wehner2014pneumatic}. Outside of laboratory settings, drive
+characteristics become more important \cite{tolleymichael2014resilient}.
+
+
+
+\hypertarget{ch1:state-of-the-art}{%
+\subparagraph{State-of-the-Art}\label{ch1:state-of-the-art}}
+
+\hypertarget{ch1:difficulty}{%
+\subparagraph{Difficulty}\label{ch1:difficulty}}
+
+Pneumatic power is not possible for deep sea operation 
+due to high ambient pressures which compress gas \cite{gruber2022advances}. 
+Pneumatic actuators have been successfully deployed underwater, 
+but are limited to relatively shallow depths \cite{gruber2022advances}.
+Hydraulic deep sea soft actuator drives have been demonstrated 
+with water as the working fluid \cite{chen2021water}. 
+The relative incompressibility of water allows for operation under high ambient pressures.  
+However, hydraulic systems require greater power than pneumatic systems
+especially to achieve high flow rates or rapid flow acceleration
+\cite{xavier2022soft}.
+
+Hydraulic experiments with \glspl{FEA} have generally swapped the working medium 
+from pneumatic to hydraulic without much consideration of the potential advantages or optimizations. 
+It is important to note that the \gls{FEA} internal pressure is a response to internal volume. Most research reports pressure because feedback control using pressure limiting
+valves are readily available and accurate for pnuematics \cite{chen2021water}, 
+and output volume for compressible flow has a non-linear relationship to input
+volume. However, for hydraulic systems control can be achieved through
+feed-forward control where output volume is equal to input
+volume, and both pressure and actuation are functions of volume. Many
+experimental hydraulic systems ignore this relationship and continue to
+utilize pressure feedback control. \textcite{chen2021water} shows a potential advantage
+of hydraulics and volume control by using a very small volume actuator
+with an integrated drive.
+
+\hypertarget{ch1:key-projects}{%
+\subparagraph{Key Projects}\label{ch1:key-projects}}
+
+Increased interest in soft robotics for deep-sea applications such as
+biological sampling \cite{galloway2016soft,licht2016universal,licht2017stronger,phillips2018dexterous} and bio-inspired
+robotics \cite{ahmed2022decade,li2023bioinspired} has created a growing need for improved drive
+designs. However, only a handful of projects have deployed deep sea soft-robotic
+engines. \textcite{galloway2016soft} demonstrated a dual cylinder engine using
+the platform's hydraulic power to control a high-pressure oil-filled
+cylinder mechanically tied to a low-pressure water water-filled
+cylinder. The system was successfully demonstrated on a science class \gls{ROV}
+\cite{licht2017stronger} but struggled to maneuver due to the large bulk of the system.
+\textcite{phillips2018dexterous} demonstrated an open seawater pump which utilized an accumulator tank and valve manifold to release pressure. The
+system offered multiple degrees of freedom and required just
+\SI{50}{\watt}. However, the system was bulky and operated at low flow
+rates due to the limited pressure differential and complex flow paths. \textcite{shen2020underwater} produced a similar open seawater pump which  utilized soft accumulators for storage. The system is much less bulky
+than previous systems and was demonstrated on an observation class \gls{ROV}.
+
+\hypertarget{ch1:dual-cylinder-pump}{%
+\subparagraph{Dual Cylinder Pump}\label{ch1:dual-cylinder-pump}}
+
+
+
+\hypertarget{ch1:open-sea-water-pump}{%
+\subparagraph{Open Sea Water Pump}\label{ch1:open-sea-water-pump}}
+
+
+
+\hypertarget{ch1:soft-open-sea-water-pump}{%
+\subparagraph{Soft Open Sea Water Pump}\label{ch1:soft-open-sea-water-pump}}
+
+\hypertarget{ch1:solution}{%
+\paragraph{Solution}\label{ch1:solution}}
+
+\hypertarget{ch1:proposed-solution}{%
+\subparagraph{Proposed Solution}\label{ch1:proposed-solution}}
+
+The developed hydraulic engine design (Fig.~\ref{ch1:fig:drawing}) uses a
+single closed-volume of hydraulic fluid. The fluid required to operate the output
+actuator is stored in a compressible soft bellows. An electronically
+controlled servo compresses the bellows forcing fluid out of the engine
+into the output actuator. The sealed engine housing is filled with oil
+for pressure tolerance. The servo is a position controlled stepper servo
+allowing for repeatable feed-forward volume control. Each hydraulic
+engine provides a single \gls{DOF} for the output actuator which can consist
+of multiple \glspl{FEA} on a single manifold. For additional \glspl{DOF}, additional
+engines are required.
+
+% The design uses a flexible bellows instead of a piston. Unlike
+% a piston, the bellows is friction-less and does not rely on a sliding
+% seal. However, the bellows does have a spring-force response to
+% compression and is limited by a maximum ``squirm pressure''.
+% Additionally, the bellows cannot produce significant negative pressure. The system operates on a single stroke which must transfer the
+% full volume while overcoming back pressure from the actuator and dynamic
+% effects.
+
+\hypertarget{ch1:design-considerations}{%
+\subparagraph{Design Considerations}\label{ch1:design-considerations}}
+
+% The characteristics of the described system are dependent on servo selection and bellows
+% design. These changes allow optimizations for specific output actuators
+% and use cases. Bellows geometry determines the output volume which must
+% be greater than the input volume of the output actuator. Internal
+% bellows pressure is determined by the pressure-response of the output actuator's
+% and system's hydraulic dynamic response. Rapid
+% actuation produces a higher bellows pressure. Internal pressure is
+% limited the squirm limit of the bellows and feed-force limit of the
+% servo. The dynamic response is also dependent on the hydraulic tube
+% dimensions and the compliance, or fluidic capacitance, of the bellows
+% and output actuator.
+
+% The pressure limits changes with bellows compression. Under rapid
+% actuation, the bellows will reach much higher pressures than the output
+% actuator. Maximizing the pressure limit for a given output volume
+% optimizes the actuation rate and power density. The bellows pressure
+% limits depend on competing design consideration. In general, for a given
+% output volume, the feed-force limit is greater for a long skinny
+% bellows, but the squirm limit is greater for a short fat bellows. We
+% proposed a simplified design process which can be further optimized
+% through iterative design.
+
+\hypertarget{ch1:success-criteria}{%
+\subparagraph{Success Criteria}\label{ch1:success-criteria}}
+
+
+We created a design process for developing versions of the hydraulic
+engine for use with different output actuators and use cases. The design
+process incorporates the results of a mathematical model describing
+engine characteristics and dynamics. We verified the model through lab
+testing. Previous project have not reported actuation rate for deep sea
+soft robotics \cite{li2023bioinspired}. Our modeling and testing establishes a baseline
+for drive speed and power density The prototypes tested show higher
+power density allowing for much more compact packages allowing them to
+be deployed on smaller platforms.
+
+\hypertarget{ch1:methods}{%
+\section{Methods}\label{ch1:methods}}
+
+
+
+\hypertarget{ch1:design-overview}{%
+\paragraph{Design Overview}\label{ch1:design-overview}}
+
+\begin{figure}
+\hypertarget{ch1:fig:drawing}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{concept.png}
+\caption{Concept drawing showing the linear drive hydraulic engine in
+unactuated (A) and actuated (B) states. The engine uses a servo to
+compress a soft bellows forcing fluid down the flexible tube into the
+actuator. The system is contained in an oil-filled pressure-compensated
+housing. The rear end-cap uses a flexible diaphragm to allow for the
+internal volume change caused by operation.}\label{ch1:fig:drawing}
+}
+\end{figure}
+
+The linear hydraulic drive created in this study (Fig.~\ref{ch1:fig:drawing}) consists of an
+electric servo which compresses an flexible bellows pushing water into
+the soft actuator through a tube. The electric servo is a position
+controlled stepper servo allowing for precise feed forward control and
+position holding. The system uses water as the working fluid which
+converts the position of the electric servo to a precise input volume.
+The flexible bellows compresses axially expelling fluid while also
+allowing for radial expansion to absorb back pressure. Unlike a cylinder
+drive, the bellows has no sliding seals which produce frictional
+resistance to rapid actuation and are potential sources for leaking. The
+design of the hydraulic tube has an effect on the dynamic response of
+the system. The engine operates inside an oil-filled housing for pressure
+compensation. A flexible diaphragm allows for the internal volume
+changes. Control electronics are in a separate \US{1}{\atm} housing.
+
+% TODO: move this somewhere better
+Using system modeling, the actuation rate can be optimized for a
+given electric servo while meeting the volume output requirements
+through changes in bellows and tube parameters. Changes can be
+implemented quickly through rapid manufacturing processes.
+
+\hypertarget{ch1:results}{%
+\section{Results}\label{ch1:results}}
+
+
+\hypertarget{ch1:deep-sea-field-trials}{%
+\subsection{Deep-Sea Field Trials}\label{ch1:deep-sea-field-trials}}
+
+We successfully deployed a prototype of the hydraulic engine on multiple deep-sea \gls{ROV}
+missions. During deployment, the engine was placed in a custom
+pressure-tolerant oil-filled housing and used thin-walled round bellows
+with three convolutions made from molded silicone. These field
+deployments, which provided a proof of concept of the pressure compensation/linear drive scheme, occurred before the laboratory testing and modeling efforts. Lessons from the field tests were incorporated into the modeling efforts and proposed future work.
+
+
+\hypertarget{ch1:prototype-design}{%
+\paragraph{Prototype Design}\label{ch1:prototype-design}}
+
+The linear drive and bellows are housed in an oil filled pressure
+compensated cylinder (Fig.~\ref{ch1:fig:housing}). The housing consists of
+two acrylic tubes with 3D printed end-caps and connecting fitting. The
+front end-cap includes ports for filling the housing with oil and a port
+to connect tubing going to a fluidic actuator. The rear end-cap includes
+a standard wet-mateable underwater connector to the motor controller. A
+flexible diaphragm sealed to the back of the rear end-cap equalizes the
+internal pressure with ambient pressure and allows the internal volume
+of the housing to change. The total internal volume changes whenever the
+linear drive is actuated because liquid is propelled in and out from the
+bellows. Due to the oil pressure compensation and lack of compressible
+volumes inside the system, the oil-filled housing allows the engine to
+theoretically operate at any depth
+
+\begin{figure}
+\hypertarget{ch1:fig:housing}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{render2real.png}
+\caption{Render (left) and real (right) design}\label{ch1:fig:housing}
+}
+\end{figure}
+
+\hypertarget{ch1:control-1}{%
+\paragraph{Control}\label{ch1:control-1}}
+
+The hydraulic engine is controlled using industrial automation
+architecture, with a Festo CMMO12 controller\footnote{https://www.festo.com/gb/en/}
+contained in a \US{1}{\atm}
+electronics bottle. The linear drive is controlled by a Festo CMMO
+controller which communicates with an external platform (ROV, manned
+submersible, etc.) via a 100~Mbps Ethernet connection. The controller
+accepts industry standard MODBUS\footnote{https://modbus.org/} \gls{TCP}
+commands allowing near-real-time
+network control of the linear drive with a minimum update rate of \SI{1}{\milli\second}.
+Commands are sent to the CMMO using MODBUS \gls{TCP} protocols through a
+static IP connection. This connection can be further integrated into a
+larger network, with multiple CMMO's driving multiple actuator fuctions
+simultaneously. Commands to the CMMO can also be sent by any device
+capable of sending MODBUS \gls{TCP} commands. For direct control over the
+device using a joystick or similar controller, a \gls{PLC} sends MODBUS \gls{TCP} commands. The \gls{PLC} used in the
+presented design is a Unitronics UniStream \gls{PLC} with built-in touch
+screen, chosen for its ease of programming. The \gls{PLC} can accept analog
+inputs from a joystick or similar device, allowing for relatively simple
+development for broader system architecture.
+
+The CMMO itself fits into a \US{1}{\atm} cylindrical housing with
+internal dimensions of \SI{113}{\mm} diameter and \SI{115}{\mm} length. The depth
+rating of the motor controller housing determines the overall depth
+rating of the system since all other components are pressure tolerant.
+In the field test described in this paper, a \SI{6000}{\meter} rated housing
+was chosen based on the needs of concurrent experiments which utilized
+the same housing. The controller connects to the linear drive motor via
+a harsh-environment wet-mateable underwater cable with four control
+wires and two brake wires, and operates as a stepper motor controller to
+operate the linear drive.
+
+
+\hypertarget{ch1:deployment}{%
+\paragraph{Deployment}\label{ch1:deployment}}
+
+\begin{figure}
+\hypertarget{ch1:fig:onrov}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{onrov.png}
+\caption{Prototype drive deployed on deep sea platforms. Clockwise
+starting in top left: \gls{ROV} Hercules on deck, \gls{ROV} SuBastion on deck, and
+\gls{ROV} Hercules at depth with target of opportunity.}\label{ch1:fig:onrov}
+}
+\end{figure}
+
+\begin{figure}
+\hypertarget{ch1:fig:targets}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{targets.png}
+\caption{Biological Targets-of-opportunity used to test the hydraulic
+engine include a stalked tunicate (upper-left), Venus flytrap sea
+anemone (upper-right) and an extremely fragile xenophyophore (bottom).
+Targets were grasped and released without any apparent injury and
+minimal disturbance.}\label{ch1:fig:targets}
+}
+\end{figure}
+
+Our prototype system was deployed (Fig.~\ref{ch1:fig:onrov}) on multiple
+platforms. First deployment was with the \gls{ROV} SuBastian during a deep-sea
+expedition off the Northwest coast of Oahu, Hawaii in October 2019. The
+drive controller was integrated into the \gls{ROV} network and operated via a
+laptop over Ethernet. The pilots used the main \gls{ROV} grippers to position
+the fluidic actuators (grippers) over targets. The system was tested
+successfully at depths up to \SI{1500}{\meter}. The deployed drive utilized
+the molded bellows design to operate a dual-finger pinch grasping array \cite{teeple2020multi}
+and a high aspect ratio soft entanglement actuator array \cite{becker2020mechanically}. 
+The fluidic actuators operated at approximately \US{15}{\psi} over ambient pressure. 
+The team conducted tests at a variety of depths, including mid-water and
+sea-floor, using encountered organisms as targets-of-opportunity
+(Fig.~\ref{ch1:fig:targets}). As expected, the fluidic actuators gripped
+organisms without injuring them because of the natural compliance of the
+fluidic actuators. Notably, actuation of the soft grippers was
+qualitatively much faster and repeatable than any previous system
+deployed at depth. Successfully grasped targets included fly trap
+anemones, glass sponges, sea stars, and a xenophyophore. The successful
+grasping of a xenophyophore was particularly notable as no damage
+to its extremely delicate shell was observed.
+
+The prototype was also deployed for a second field test on \gls{ROV} Hercules
+in October of 2020 utilizing the larger \gls{SLA} printed bellows to drive a
+the same dual-finger pinch grasping array with minor modifications. Operators
+used the system to collect delicate sea urchins. The system successfully
+operated at a depth of approximately \SI{2000}{\meter} and reached a max depth of \SI{3870}{\meter} without damage.
+
+\hypertarget{ch1:discussion}{%
+\paragraph{Discussion}\label{ch1:field-discussion}}
+
+The prototype deployed successfully as a proof of concept. However,
+during deployment, we identified multiple pitfalls which are addressed
+in the resulting design proposal. During field test we observed 
+lower than expected pressure and actuation rate limitations.
+The silicone bellows was far more compliant than the printed
+versions. This resulted in significant expansion as well as a delayed
+response at the output actuator. Additionally, the increased compliance
+resulted in decreased axial stiffness causing off axis buckling. For
+deployments, we printed a bellows guide to constrain bellows movement.
+While somewhat effective, the guide also increased system friction. Even
+with the guide in place, we observed that dynamic back pressure also limited
+actuation rate. These lessons helped inform the modeling and design
+proposal.
+
+
+\hypertarget{ch1:system-model}{%
+\subsection{System Model}\label{ch1:system-model}}
+
+\hypertarget{ch1:design-fabrication-and-optimization}{%
+\paragraph{Design, Fabrication, and
+Optimization}\label{ch1:design-fabrication-and-optimization}}
+
+We have developed a system model and design process to improve future system performance.
+The model attempts to predict the limitations observed during field demonstrations.
+The design process uses the model to predict parameters to improve actuation rate for a given output.
+Due to the highly non-linear nature and variability of the modeling, 
+the proposed design process does not represent a full optimization.
+In this effort, modeling is performed using simulated data. 
+We propose a set of lab tests to confirm model validity.
+
+Engine design depends on the output actuator and operational
+requirements. The following design process can be followed using the
+input parameters of a given output actuator and linear servo. The design
+process is iterative and may result in identifying a need for a different
+servo.
+
+\hypertarget{ch1:system-overview}{%
+\paragraph{System Overview}\label{ch1:system-overview}}
+
+\begin{figure}
+\hypertarget{ch1:fig:model}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{system-model.png}
+\caption{Hydraulic flow diagram depicting a drive consisting of a
+bellows with connecting tube driving an actuator. The bellows depicted
+is a thin-walled triangular bellows with \(N=3\) convolutions of height
+\(h_0\) and wall thickness \(t\). The bellows has an inner \(D_i\) and
+outer \(D_o\) diameters. As the bellows is compressed axially distance
+\(x\), fluid is pushed through a tube of diameter \(d_t\) and length
+\(l_t\) until the actuator pressure \(p_a\) equalizes with bellows
+pressure \(p_b\).}\label{ch1:fig:model}
+}
+\end{figure}
+
+Fig.~\ref{ch1:fig:model} shows the hydraulic flow diagram which results in
+flow out of the bellows and into the actuator.
+
+\hypertarget{ch1:system-elements}{%
+\paragraph{System Elements}\label{ch1:system-elements}}
+
+\hypertarget{ch1:output-actuator}{%
+\paragraph{Output Actuator}\label{ch1:output-actuator}}
+
+The system is meant to be tuned to the output actuator. Sets of
+actuators on a manifold are treated as a single output actuator. \gls{FEA}
+actuation can take the form of complex motion including combinations of
+extension, bending, and/or twisting. While the actuation geometry
+depends on design and material properties, the motion is a function
+internal volume. For drive design, we ignore resulting actuator motion
+and use internal volume change \(V_a\) as a proxy for complex motion. If
+necessary, the resulting motion can be calculated later. The resulting
+actuator pressure \(p_a\) response and the maximum volume change
+\(\Delta V_\text{max}\) completely describes the output actuator for the
+purposes of engine design.
+
+We model the output actuator as a fluidic capacitance
+(Eq.~\ref{ch1:eq:actuator-pressure}, ~\ref{ch1:eq:actuator-energy}).
+The pressure response \(p_a\) and energy storage \(\mathcal{E}_a\) of the
+output actuator are measurable functions of internal volume change \(\Delta V_a\). 
+The hydraulic drive must supply the maximum fluid volume \(\Delta V_{a,\text{max}}\)
+at sufficient pressure \(p_{a,\text{max}}\)
+to fully operate the actuator. Volume changes are measured relative to
+initial internal volume at ambient pressure.
+For modeling, we define (Eq.~\ref{ch1:eq:actuator-capacitance}) a linear approximate for the
+actuator response using the ideal actuator capacitance coefficient
+\(C_a\). Every output actuator has a unique pressure response. While
+useful for initial design, the linear approximation is not valid for
+many available actuators.
+
+\begin{equation}\protect\hypertarget{ch1:eq:actuator-pressure}{}{ 
+p_a(\Delta V_a) 
+\approx \frac{1}{C_f} \Delta V_a
+}\label{ch1:eq:actuator-pressure}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:actuator-energy}{}{ \mathcal{E}_a = \int_{0}^{p_a} p_a dV_a
+\approx \frac{1}{2} C_a p_a^2 
+}\label{ch1:eq:actuator-energy}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:actuator-capacitance}{}{ C_a: = \frac{ \Delta V_{a,\text{max}} }{ p_{a,\text{max}} } 
+}\label{ch1:eq:actuator-capacitance}\end{equation}
+
+\hypertarget{ch1:output-actuators}{%
+\paragraph{Output Actuators}\label{ch1:output-actuators}}
+
+We used a single actuator with a measured pressure response curve. The
+output is based on the design previously by the authors \cite{yin2023rapid}\footnote{\textcite{yin2023rapid}: R. Shomberg is co-author (see appendix)}.
+We approximated a linear response based on the measured maximum volume and
+pressure to get a single constant capacitance value
+Tbl.~\ref{ch1:tbl:output}.
+
+\hypertarget{ch1:tbl:output}{}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4750}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0875}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4375}}@{}}
+\caption{\label{ch1:tbl:output}Output actuator parameters}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Units
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Units
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Max volume \(\Delta V_{a,\text{max}}\) & 50 & \si{\milli\liter} \\
+Max pressure \(p_{a,\text{max}}\) & 47 & \si{\kilo\pascal} \\
+Capacitance \(C_a\) & 1.1 & \si{\milli\liter\per\kilo\pascal} \\
+\end{longtable}
+
+
+\hypertarget{ch1:linear-servo}{%
+\paragraph{Linear Servo}\label{ch1:linear-servo}}
+
+The chosen linear servo Tbl.~\ref{ch1:tbl:servo} is the Festo
+EPCO-25-100-10P. The servo has rapid actuation with accurate feed
+forward position control. We expect the feed force to be the limiting
+factor any design.
+
+\hypertarget{ch1:tbl:servo}{}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4304}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0886}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4810}}@{}}
+\caption[\label{ch1:tbl:servo}Stepper-servo parameters Festo
+EPCO-25-100-10P]{\label{ch1:tbl:servo}Stepper-servo parameters Festo
+EPCO-25-100-10P\footnote{https://www.festo.com/us/en/p/electric-actuator-id\_EPCO/}}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Units
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Units
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Feed Force \(F_\text{max}\) & 105 & \si{\newton} \\
+Stroke \(x_\text{max}\) & 100 & \si{\milli\meter} \\
+Feed Velocity \(v_\text{max}\) & 500 & \si{\milli\meter\per\second} \\
+Feed Acceleration \(a_\text{max}\) & 10 &
+\si{\milli\meter\per\second\squared} \\
+\end{longtable}
+
+
+\hypertarget{ch1:bellows}{%
+\paragraph{Bellows}\label{ch1:bellows}}
+
+The bellows is the primary design element of the engine. The bellows
+internal volume \(V_b\) changes from a combination
+(Eq.~\ref{ch1:eq:bellows-volume}) of axial compression \(\Delta V_{b,x}\)
+and radial expansion \(\Delta V_{b,r}\).
+
+\begin{equation}\protect\hypertarget{ch1:eq:bellows-volume}{}{ \Delta V_b = \Delta V_{b,x} + \Delta V_{b,r}   
+}\label{ch1:eq:bellows-volume}\end{equation}
+
+\hypertarget{ch1:bellows-compression}{%
+\subparagraph{Bellows Compression}\label{ch1:bellows-compression}}
+
+The axial compression is a function (Eq.~\ref{ch1:eq:compression-axial}) of
+compression distance \(x\) which can be linear approximated using the
+bellows effective cross-sectional area \(A_b\).
+
+\begin{equation}\protect\hypertarget{ch1:eq:compression-axial}{}{ \Delta V_{b,x}(x) \approx -A_b x   
+}\label{ch1:eq:compression-axial}\end{equation}
+\[ \Delta V_{b,\text{max}} \approx -A_b x_\text{max}   
+\]
+
+\hypertarget{ch1:bellows-expansion}{%
+\subparagraph{Bellows Expansion}\label{ch1:bellows-expansion}}
+
+The radial expansion is a function (Eq.~\ref{ch1:eq:expansion-radial}) of
+internal bellows pressure \(p_b\) and compression distance \(x\). The
+bellows compliance that allows for radial expansion can be approximated
+using an ideal fluidic capacitance coefficient \(C_b\). However, the
+bellows capacitance depends on initial geometry and axial compression.
+Radial expansion is an approximation for any non-axial expansion. It may
+not be strictly radial in a traditional sense.
+
+\begin{equation}\protect\hypertarget{ch1:eq:expansion-radial}{}{ \Delta V_{b,r}(p_b,x) \approx \frac{1}{C_b} p_b   
+}\label{ch1:eq:expansion-radial}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:bellows-energy}{}{ \mathcal{E}_b(p_b,x) = \int_{0}^{p_a} p_b dV_{b,r}(p_b,x)
+\approx \frac{1}{2} C_b p_b^2 
+}\label{ch1:eq:bellows-energy}\end{equation}
+
+\hypertarget{ch1:volume-limit}{%
+\paragraph{Volume Limit}\label{ch1:volume-limit}}
+
+Maximum volume output \(\Delta V_{a,\text{max}}\) depends on maximum
+volume change of the bellows \(\Delta V_{b,\text{max}}\) which depends
+on the effective area \(A_b\) and stroke length \(x_\text{max}\). The
+bellows retains internal volume even at full compression depending on
+design geometries..
+
+\[ \Delta V_{a,\text{max}} \le \Delta V_{b,\text{max}}   
+= A_b x_\text{max}
+\]
+
+\hypertarget{ch1:pressure-limits}{%
+\paragraph{Pressure Limits}\label{ch1:pressure-limits}}
+
+The system operates under two opposing pressure limits. The feed force
+limit is based on servo limitations and is greater for The squirm limit
+is based on bellows limitations. Peak bellows pressure can be much
+higher than actuator operating pressure depending on the speed of
+actuation. Higher pressure limits allow for greater actuation rates.
+
+\hypertarget{ch1:feed-force-limit}{%
+\subparagraph{Feed Force Limit}\label{ch1:feed-force-limit}}
+
+Axial compression force \(F\) on the bellows is a combination
+(Eq.~\ref{ch1:eq:axial-force}) of forces from the bellows pressure force
+\(F_b\) and spring force \(F_K\).
+
+\begin{equation}\protect\hypertarget{ch1:eq:axial-force}{}{ F(x,p_b) = F_K(x) + F_b(p_b)   
+}\label{ch1:eq:axial-force}\end{equation}
+
+The bellow pressure force \(F_b\) is a function
+(Eq.~\ref{ch1:eq:force-pressure}) of the bellows pressure \(p_b\), and can
+be linearly approximated using the bellows effective cross-sectional
+area \(A_b\).
+
+\begin{equation}\protect\hypertarget{ch1:eq:force-pressure}{}{ F_b(p_b) \approx A_b p_b   
+}\label{ch1:eq:force-pressure}\end{equation}
+
+The spring force \(F_K\) is a function (Eq.~\ref{ch1:eq:force-spring}) of
+axial compression \(x\). It can be be approximated using a stiffness
+\(K\). However, the stiffness depends on geometry, material properties,
+and axial compression. Spring energy \(\mathcal{E}_k\) is stored as a
+function Eq.~\ref{ch1:eq:spring-energy} of axial compression.
+
+\begin{equation}\protect\hypertarget{ch1:eq:force-spring}{}{ F_K(x) = x \cdot K(x)   
+}\label{ch1:eq:force-spring}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:spring-energy}{}{ \mathcal{E}_K(x) = \int_0^F F dx   
+\approx \frac{1}{2} \frac{F_K(x)^2}{K(x)}   
+}\label{ch1:eq:spring-energy}\end{equation}
+
+The feed force is limited by the maximum servo feed force
+\(F_\text{max}\) resulting in a bellows pressure limit
+(Eq.~\ref{ch1:eq:feed-limit}).
+
+\begin{equation}\protect\hypertarget{ch1:eq:feed-limit}{}{ 
+p_b(x) \le \frac{ F_\text{max} - x \cdot K(x) }{ A_b }   
+}\label{ch1:eq:feed-limit}\end{equation}
+
+\hypertarget{ch1:squirm-pressure-limit}{%
+\subparagraph{Squirm Pressure Limit}\label{ch1:squirm-pressure-limit}}
+
+\begin{figure}
+\hypertarget{ch1:fig:squirm}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{squirm-example.png}
+\caption{Example of bellows squirm. Under high internal pressure, the
+bellows exerts axial force on the constraining ends. The resulting load
+causes axial instability causing the bellows to buckle off axes as
+indicated by the overlayed lines.}\label{ch1:fig:squirm}
+}
+\end{figure}
+
+Similar to an elastic columns \cite{hermann1997static}, large axial forces can cause a
+bellows to which the bellows will buckle off axis
+(Fig.~\ref{ch1:fig:squirm}). This failure mode is known as squirm. Bellows
+squirm occurs suddenly above the critical pressure \(p_{cr}\) of the
+bellows. The pressure limit depends (Eq.~\ref{ch1:eq:squirm-limit}) on the
+stiffness \(K\), initial length \(L_0\), and compression distance \(x\)
+\cite{hermann1997static}.
+
+\begin{equation}\protect\hypertarget{ch1:eq:squirm-limit}{}{ 
+p_{cr}(x) = \frac{2\pi}{L_0-x} \cdot K(x)   
+}\label{ch1:eq:squirm-limit}\end{equation}
+
+
+\hypertarget{ch1:prototype-bellows-design}{%
+\paragraph{Prototype Bellows
+Design}\label{ch1:prototype-bellows-design}}
+
+\hypertarget{ch1:bellows-geometry}{%
+\paragraph{Bellows Geometry}\label{ch1:bellows-geometry}}
+
+\begin{figure}
+\hypertarget{ch1:fig:bellows-params}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{bellows-params.png}
+\caption{Diagram of basic geometry references showing geometric
+parameters described in Tbl.~\ref{ch1:tbl:bellows-params} for thin-walled
+triangular bellows. The dashed right triangle shows the relationship
+between parameters. The bellows is corrugated thin-walled cylinder with
+axial symmetry made of a flexible material.}\label{ch1:fig:bellows-params}
+}
+\end{figure}
+
+Bellows can be manufactured in many different shapes. For lab testing,
+we designed and fabricated a flexible thin-walled triangular bellows
+(Fig.~\ref{ch1:fig:bellows-params}).
+
+
+\hypertarget{ch1:tbl:bellows-params}{}
+\begin{longtable}[]{@{}ll@{}}
+\caption{\label{ch1:tbl:bellows-params}Interdependent geometric
+(Fig.~\ref{ch1:fig:bellows-params}) parameters of a thin-walled triangular
+bellows. Bolded parameters do not change with axial compression \(x\).
+The bellows can be described completely by the first five independent
+parameters.}\tabularnewline
+\toprule\noalign{}
+Parameter & Symbol \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Parameter & Symbol \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Inner Diameter} & \(D_i\) \\
+Convolution Height & \(h\) \\
+\textbf{Number of Convolutions} & \(N\) \\
+\textbf{Material Thickness} & \(t\) \\
+Convolution Angle & \(\theta\) \\
+Overall Bellows Length & \(L\) \\
+Outer Diameter & \(D_o\) \\
+\textbf{Convolution Hypotenuse} & \(S\) \\
+\end{longtable}
+
+This geometry is easy to manufacture and can be defined using only a few
+parameters (Tbl.~\ref{ch1:tbl:bellows-params}). These parameters determine
+the bellow properties including volume and pressure limits. The geometry
+changes with axial compression \(x\) from the initial state. Geometry
+changes from radial expansion are assumed insignificant. Strain limiting
+is used to prevent expansion of the inner diameter. Assuming bending
+occurs evenly and only at the inner and outer convolution angles, we can
+define the geometric parameters based on the initial parameters and
+axial compression \(x\).
+
+Each half-convolution forms a right triangle with fixed hypotenuse \(S\)
+defining relationships between the remaining parameters. We assume the
+hypotenuse and inner diameters remain fixed.
+
+\[ 
+S^2 = \left( \frac{h}{2} \right)^2 +   
+    \left(\frac{D_i (\alpha-1)}{2} \right)^2   
+\] \[ 
+\tan{\frac{\theta}{2}} = \frac{h}{D_i (\alpha-1)}   
+\]
+
+These can be rearranged to become functions of axial compression \(x\)
+and the initial convolution height \(h_0\).
+
+\[ 
+h(x) = h_0 - \frac{x}{N}   
+\] \[ 
+\alpha(x) = 1 + \sqrt{4S^2 - h(x)^2}   
+\]
+
+For a thin-walled triangular bellows the effective cross-sectional area
+\(A_b\) is the inside area of the end-caps which for our design is based
+off (Eq.~\ref{ch1:eq:bellows-area}) the inner diameter \(D_i\) of the
+bellows.
+
+\begin{equation}\protect\hypertarget{ch1:eq:bellows-area}{}{A_b = \frac{\pi}{4} D_i^2
+}\label{ch1:eq:bellows-area}\end{equation}
+
+The maximum compression distance \(x_\text{max}\) is limited
+(Eq.~\ref{ch1:eq:max-compression}) by the number \(N\) of convolutions,
+initial convolution height \(h_0\), and material thickness \(t\). At
+maximum compression, the convolution walls touch. The remaining volume
+depends on the compressed length and the inner area. The maximum bellows
+volume change results (Eq.~\ref{ch1:eq:max-volume}) from the max compression
+distance.
+
+\begin{equation}\protect\hypertarget{ch1:eq:max-compression}{}{ 
+x \le N(h_0 - 2t)   
+}\label{ch1:eq:max-compression}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:max-volume}{}{
+\Delta V_{b,x} \le A_b  N(h_0 - 2t)   
+}\label{ch1:eq:max-volume}\end{equation}
+
+The bellows stiffness \(K\) depends (Eq.~\ref{ch1:eq:stiffness}) on
+geometry, material properties (Tbl.~\ref{ch1:tbl:materials}), and
+diameter-ratio \(\alpha\) which is a function (Eq.~\ref{ch1:eq:alpha}) of
+compression distance \(x\) \cite{wang2020mechanoreception}.
+
+\begin{equation}\protect\hypertarget{ch1:eq:stiffness}{}{ 
+K(\alpha) = \frac{\pi E t^3}{3N(1-\nu^2)D_i^2} \left[
+\frac{1}{\ln{\alpha} - (\alpha-1) + \frac{1}{2}(\alpha-1)^2}
+\right]   
+}\label{ch1:eq:stiffness}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:alpha}{}{ 
+\alpha(x) = D_o(x)/D_i   
+}\label{ch1:eq:alpha}\end{equation}
+
+Bellows capacitance \(C_b\) depends (Eq.~\ref{ch1:eq:bellows-capacitance})
+on geometry and compression distance \(x\). This approximation is based
+on the hoop strain for a thin-walled cylinder of equivalent average
+diameter.
+
+\begin{equation}\protect\hypertarget{ch1:eq:bellows-capacitance}{}{ C_b(x) \approx   
+\frac{\pi}{16}  
+\frac{\left( \frac{1}{2} (\alpha(x)+1) D_i \right)^3} {E t}   
+\left( Nh_0-x \right)
+}\label{ch1:eq:bellows-capacitance}\end{equation}
+
+\hypertarget{ch1:bellows-fabrication}{%
+\paragraph{Bellows Fabrication}\label{ch1:bellows-fabrication}}
+
+Bellows are fabricated using \gls{FDM} printing with flexible \gls{TPU} material.
+The bellows were printed vertically around their axis without supports.
+Printer overhang was limited to \SI{45}{\degree}, so bellows were designed
+with \SI{90}{\degree} convolutions. To ensure water-tightness even when
+pressurized, the walls were printed with four (4) horizontal layers. When
+measured, the thickness was slightly greater than expected. The
+as-fabricated values (Tbl.~\ref{ch1:tbl:materials}) were used for prototype
+design and modeling.
+
+
+\hypertarget{ch1:tbl:materials}{}
+\begin{longtable}[]{@{}lrl@{}}
+\caption{\label{ch1:tbl:materials}Material properties for NinjaFlex
+filament printed on a Prusa \gls{FDM} printer.}\tabularnewline
+\toprule\noalign{}
+Property & Value & Units \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Property & Value & Units \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Elastic Modulus \(E\) & 12 & \si{\mega\pascal} \\
+Poisson's ratio \(\nu\) & 0.26 & \\
+Wall-thickness \(t\) & 1.62 & \si{\milli\meter} \\
+\end{longtable}
+
+We also printed solid end-caps to seal either end of the bellows. The
+end-caps include ports for hydraulic tubing and sensors.
+
+\hypertarget{ch1:bellows-optimization}{%
+\paragraph{Bellows Optimization}\label{ch1:bellows-optimization}}
+
+We are trying to minimize the total actuation time
+(Eq.~\ref{ch1:eq:time-actuation}). This requires optimizing the maximum
+bellows pressure. The bellows must also meet the output volume
+requirement. The maximum pressure is limited by the feed force limit
+(Eq.~\ref{ch1:eq:feed-limit}) and the squirm limit
+(Eq.~\ref{ch1:eq:squirm-limit}). Both limits depend on geometry and material
+properties. The feed force limit favors long skinny bellows. The squirm
+limit favors short stout bellows. The output volume requires an overall
+volume. For any given volume, a compromise between length and diameter
+will maximize the pressure limit. The values will also depend on the number of convolutions. Adding more
+convolutions can increase the pressure limit but will also limit usable
+volume.
+
+Both limits are non-linear functions of compression distance \(x\). The
+feed force limit decreases with compression reaching its minimum at
+full compression. The squirm limit initially decreases and then
+increases with compression after a reaching a minimum. For this
+optimization, the maximum available pressure is taken as the minimum of
+the minimum of both limits.
+
+\begin{figure}
+\hypertarget{ch1:fig:optimization-small}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{bellows-comparison.png}
+\caption{Optimization contour plot for small servo. Blue represents
+maximum output volume in mL. Green represents minimum pressure limit in
+kPa. The red dashed line marks the proposed design to maximize pressure for given volume. The greatest pressure limit occurs at the
+intersection of the squirm pressure limit and feed force pressure
+limit.}\label{ch1:fig:optimization-small}
+}
+\end{figure}
+
+Convolution angle and material thickness are determined by the
+manufacturing process. Elastic modulus \(E\) and Poisson's ratio \(\nu\)
+are determined by material selection. Maximum servo feed force and
+stroke length are determined by servo selection. The remaining three
+parameters (\(D_i\), \(N\), \(h_0\)) must be selected in balance to form
+a working bellows for a given output.
+
+Using a series of contour plots to compare designs across the remaining
+parameters, we can select parameters which meet our volume requirements
+while maximizing output pressure. If no viable design exists, it may be
+necessary to modify the number of convolutions or select a different servo.
+
+Using the contour plots, we can design a bellows with the required
+volume output, but improved pressure limits for a given servo. The
+volume requirement is determined by the output actuator. From there,
+maximizing the pressure limit will allow for the fastest actuation. The
+pressure limit must be greater than the actuator pressure response or
+the system will not work at all.
+This design process is not a true pressure optimization, but can be used
+to generate a viable design for further testing.
+Tbl.~\ref{ch1:tbl:bellows-design} shows the proposed design and parameters.
+
+
+\hypertarget{ch1:tbl:bellows-design}{}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4810}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1519}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3671}}@{}}
+\caption{\label{ch1:tbl:bellows-design}Final proposed design parameters for
+the hydraulic engine}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Units
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Units
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Inner Diameter \(D_i\) & 32.2 & \si{\mm} \\
+Initial Convolution Height \(h_0\) & 12.0 & \si{\mm} \\
+Number of Convolutions \(N\) & 5 & - \\
+Material Thickness \(t\) & 1.62 & \si{\mm} \\
+Convolution Angle \(\theta\) & 90.0 & degree \\
+Overall Bellows Length \(L\) & 60.0 & \si{\mm} \\
+Outer Diameter \(D_o\) & 44.2 & \si{\mm} \\
+Convolution Hypotenuse \(S\) & 8.5 & \si{\mm} \\
+Elastic Modulus \(E\) & 12 & \si{\mega\pascal} \\
+Poisson's ratio \(\nu\) & 0.26 & \\
+Wall-thickness \(t\) & 1.62 & \si{\milli\meter} \\
+% Eff. Area \(A_b\) & 1146084.42 & \si{\mm\squared} \\
+Capacitance \(C_b\) & 0.03 & \si{\mL\per\kPa} \\
+\end{longtable}
+
+\hypertarget{ch1:zero-pressure-tests}{%
+\paragraph{Zero Pressure Tests}\label{ch1:zero-pressure-tests}}
+
+The bellows volume output and stiffness can be tested using a graduated
+cylinder as an unpressurized output. 
+Fig.~\ref{ch1:fig:zero-pressure-small} shows theoretical results 
+for a static unpressurized bellows test.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Set up bellows in a test stand with open output into a graduated
+  cylinder
+\item
+  Slowly compress the bellows
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Measure output volume in the graduated cylinder.
+  \item
+    Measure distance compressed.
+  \item
+    Measure axial force using a load sensor
+  \end{enumerate}
+\item
+  Stop at full compression
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Measure full compression.
+  \end{enumerate}
+\item
+  Calculate axial stiffness from compression and axial force.
+\end{enumerate}
+
+
+\begin{figure}
+\hypertarget{ch1:fig:zero-pressure-small}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{zero-pressure-test-small-bellows.png}
+\caption{Example static unpressurized test for
+bellows}\label{ch1:fig:zero-pressure-small}
+}
+\end{figure}
+
+\hypertarget{ch1:static-pressure-tests}{%
+\paragraph{Static Pressure Tests}\label{ch1:static-pressure-tests}}
+
+The bellows capacitance and squirm limit can be tested by holding the
+bellows statically and injecting known volumes of fluid into the
+bellows.
+Fig.~\ref{ch1:fig:static-pressure-small} shows the static pressurized test
+results for bellows.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Set up bellows in test stand with a closed output.
+\item
+  Compress known distance. (Starting with \SI{0}{\mm})
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Force fluid into bellows slowly until squirm failure
+  \item
+    Measure injected fluid volume.
+  \item
+    Measure internal bellows pressure.
+  \item
+    Measure squirm pressure as the maximum pressure reached.
+  \item
+    Repeat at different compression distances. Try to find compression distance
+    with minimum squirm pressure.
+  \end{enumerate}
+\end{enumerate}
+
+\begin{figure}
+\hypertarget{ch1:fig:static-pressure-small}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{static-pressure-test-small-bellows.png}
+\caption{Example static pressurized test for bellows. The blue lines
+represent pressure measurements at each compression distance. The
+starting internal bellows volume decreases with compression change, and
+increases as fluid is injected. The slope of each blue line represents
+the capacitance of the bellows at that compression distance. The green
+line connects the maximum measured pressure showing the squirm limit.
+The internal volume axis is flipped to represent increasing compression
+distance.}\label{ch1:fig:static-pressure-small}
+}
+\end{figure}
+
+
+The combined test results can be used to calculate bellows capacitance
+and pressure limits as functions of axial compression
+(Fig.~\ref{ch1:fig:results-bellows-small}).
+
+\begin{figure}
+\hypertarget{ch1:fig:results-bellows-small}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{test-results-small-bellows.png}
+\caption{Example test results for bellows showing the capacitance and
+pressure limits as functions of compression distance. During the initial
+compression squirm limit is lower, but the drive feed limit becomes
+lower with increasing compression.}\label{ch1:fig:results-bellows-small}
+}
+\end{figure}
+
+
+
+\hypertarget{ch1:hydraulic-tubing}{%
+\paragraph{Hydraulic Tubing}\label{ch1:hydraulic-tubing}}
+
+The hydraulic tube transfers fluid from the drive to the output actuator
+resulting in additional dynamic pressure during flow. For fast
+actuation, the drive must overcome back pressure from both the output
+actuator and the hydraulic tube.
+
+We model the tube pressure differential \(p_{ba}\) is a function
+(Eq.~\ref{ch1:eq:pressure-tube}) of flow rate \(\dot{V_a}\) and flow
+acceleration \(\ddot{V_a}\). Flow through the tube is equal to flow into
+the output actuator. The pressure response of the tube is approximated
+linearly using coefficients for fluidic resistance \(R\) and fluidic
+inertance \(I\). These coefficients can be fitted using empirical data
+of or estimated (Eq.~\ref{ch1:eq:tube-resistance};
+Eq.~\ref{ch1:eq:tube-inertance}) based on geometry.
+
+\begin{equation}\protect\hypertarget{ch1:eq:pressure-tube}{}{ p_{ba}(\dot{V_a}, \ddot{V_a})   
+\approx R \dot{V_a} + I \ddot{V_a}   
+}\label{ch1:eq:pressure-tube}\end{equation}
+
+Power \(\mathcal{P}_R\) is dissipated through the tube as a function
+(Eq.~\ref{ch1:eq:tube-power}) of flowrate and pressure differential.
+
+\begin{equation}\protect\hypertarget{ch1:eq:tube-power}{}{ \mathcal{P}_R = \dot{V_a}p_{ba}   
+\approx \frac{1}{R}p_{ba}^2   
+}\label{ch1:eq:tube-power}\end{equation}
+
+
+\hypertarget{ch1:hydraulic-tube-design}{%
+\paragraph{Hydraulic Tube Design}\label{ch1:hydraulic-tube-design}}
+
+The hydraulic tube geometry is defined by length \(l_t\) and
+inner-diameter \(d_t\). The tube resistance \(R\) depends
+(Eq.~\ref{ch1:eq:tube-resistance}) on the geometry and absolute viscosity
+\(\mu\) of fluid. The tube inertance \(I\) depends
+(Eq.~\ref{ch1:eq:tube-inertance}) on the geometry and the density \(\rho\)
+fluid. Fresh water (Tbl.~\ref{ch1:tbl:fluidic-properties}) is used
+throughout all system demonstrations described in this paper, though
+salt water can also be used.
+
+
+\hypertarget{ch1:tbl:fluidic-properties}{}
+\begin{longtable}[]{@{}lrl@{}}
+\caption{\label{ch1:tbl:fluidic-properties}Approximate fluidic properties of
+fresh water at room temperature}\tabularnewline
+\toprule\noalign{}
+Parameter & Value & Units \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Parameter & Value & Units \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Density \(\rho\) & 1000 & \si{\kilogram\per\meter\cubed} \\
+Absolute Viscosity \(\mu\) & 0.001 & \si{\pascal\second} \\
+\end{longtable}
+
+\begin{equation}\protect\hypertarget{ch1:eq:tube-resistance}{}{ R = 128 \frac{\mu l_t}{\pi d_t^4}   
+}\label{ch1:eq:tube-resistance}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:tube-inertance}{}{ I = \rho \frac{l_t}{A_T} = \frac{4 \rho}{\pi} \frac{l_t}{d_t^2}   
+}\label{ch1:eq:tube-inertance}\end{equation}
+
+If multiple tubes are used, the resistance and inertance values can be
+added in series or parallel as necessary. Fittings can cause additional
+resistance. Selecting low resistance fittings is an important to enable
+high flow rates.
+
+\hypertarget{ch1:hydraulic-tube-tests}{%
+\paragraph{Hydraulic Tube Tests}\label{ch1:hydraulic-tube-tests}}
+
+Resistance and inertance can be measured for the hydraulic tubes as well
+as the fittings.
+
+\begin{figure}
+\hypertarget{ch1:fig:tube-test}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{tube-test.png}
+\caption{Theoretical test of tube resistance and inertance per length at
+different inner diameters. This analysis does not include
+fittings.}\label{ch1:fig:tube-test}
+}
+\end{figure}
+
+\hypertarget{ch1:system-dynamics}{%
+\paragraph{System Dynamics}\label{ch1:system-dynamics}}
+
+\begin{figure}
+\hypertarget{ch1:fig:system-graph}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{system-graph.png}
+\caption{System graph showing system dynamics. Axial compression
+\(\dot{V}_i\) of the bellows is split between flow \(\dot{V}\) to the
+actuator of capacitance \(C_a\) and radial expansion \(V_b\) of the
+bellows of capacitance \(C_b\) causing back pressure
+\(p_{ba} = p_b-p_a\) across the connecting tube of resistance \(R\) and
+inertance \(I\) until actuator pressure \(p_a\) equalizes with bellows
+pressure \(p_b\).}\label{ch1:fig:system-graph}
+}
+\end{figure}
+
+Hydraulic system model (Fig.~\ref{ch1:fig:system-graph}) can be represented 
+as a linear graph \cite{shearer1967introduction}. 
+Servo motion is converted into axial compression. 
+The displaced volume flows down the tube resulting in back-pressure
+initially from dynamic effects of inertia and resistance. 
+The back-pressure pressurizes the bellows through radial expansion.
+Continued flow into the output actuator slowly equalizes pressure across the system.
+
+\hypertarget{ch1:state-space-model}{%
+\paragraph{State-Space Model}\label{ch1:state-space-model}}
+
+The model only includes the hydraulic elements of the system. We assume
+servo motion \(x\) is directly correlated to axial compression
+\(\Delta V_{b,x}\) of the bellows and that actuator volume change
+\(\Delta V_a\) is directly correlated to actuator motion. These
+assumptions breakdown outside the operational limits of the engine or if
+the output actuator is subject to outside forces.
+
+By assuming a valid linear approximation for each element, we can define
+a system state-space model (Eq.~\ref{ch1:eq:model-linear}) by the state
+variables: hydraulic tube pressure differential \(p_{ba}\) and flowrate
+\(\dot{V}_a\) through the tube into the actuator. The input variable
+with is the servo velocity \(\dot{x}(t)\) as a function of time \(t\).
+The system capacitance \(C\) is a result
+(Eq.~\ref{ch1:eq:system-capacitance}) of the parallel capacitance of the
+output actuator and the bellows.
+
+\begin{equation}\protect\hypertarget{ch1:eq:model-linear}{}{ \left[ \begin{array}{c}   
+\ddot{V}_a \\   
+\dot{p}_{ba}   
+\end{array}   
+\right] =   
+\left[\begin{array}{c}   
+\frac{1}{I} p_{ba} - \frac{R}{I} \dot{V}_a \\   
+-\frac{1}{C}   
+ \dot{V}_a - \frac{1}{C_b} A_b \dot{x}(t)   
+\end{array}\right]   
+}\label{ch1:eq:model-linear}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:system-capacitance}{}{ \frac{1}{C} = \frac{1}{C_a} + \frac{1}{C_a}   
+}\label{ch1:eq:system-capacitance}\end{equation}
+
+Given initial values for the state variables and the servo velocity
+function, the state-space can be solved through integration. Then using
+the state variables, we can determine the remaining system variables as
+functions of time \(t\).
+
+\[ \Delta V_{b,x}(t) = \int_0^T A_b \dot{x}(t) dt   
+\] \[ \Delta V_{b,r}(t) = \Delta V_{b,x}(t) - V_a(t)   
+\] \[ p_a(t) = \frac{1}{C_a} \Delta V_a(t)   
+\] \[ p_b(t) = p_{ba}(t) + p_a(t)   
+\]
+
+The model assumes linear approximations for each of the elements. Model
+accuracy depends on the validity of each of the linear assumptions.
+
+\hypertarget{ch1:harmonic-oscillator-model}{%
+\paragraph{Harmonic Oscillator Model}\label{ch1:harmonic-oscillator-model}}
+
+By integrating and simplifying (Eq.~\ref{ch1:eq:harmonic-long}), the system
+can be represented as a harmonic oscillator (Eq.~\ref{ch1:eq:harmonic}) with
+natural frequency \(\omega_0\), damping ratio \(\zeta\), and gain \(G\).
+
+\begin{equation}\protect\hypertarget{ch1:eq:harmonic-long}{}{ \ddot{V}    
++ \frac{R}{I} \dot{V}_a    
++ \frac{1}{I} \frac{1}{C} \Delta V_a    
+= \frac{A_b}{I C_b} x(t)   
+}\label{ch1:eq:harmonic-long}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:harmonic}{}{ \ddot{V}_a   
++ 2\zeta \omega_0  \dot{V}_a^2   
++ \omega_0^2  V_a   
+= G x(t)   
+}\label{ch1:eq:harmonic}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:natural-freq}{}{ \omega_0 =   
+\sqrt{\frac{1}{IC}}   
+}\label{ch1:eq:natural-freq}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:damping-ratio}{}{ \zeta = \frac{R}{2}\sqrt{\frac{C}{I}}   
+}\label{ch1:eq:damping-ratio}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:input-gain}{}{ G = \frac{A_b}{I C_b}   
+}\label{ch1:eq:input-gain}\end{equation}
+
+The harmonic oscillator model can reveal how the system will react to
+input motion from the servo. The servo velocity function \(\dot{x}(t)\)
+can be modeled as a step function.
+
+We used the harmonic coefficients for predictive design of the engine.
+The fastest response without overshoot is achieved by designs with
+critical damping (\(\zeta=1\)).
+
+Total actuation time \(\Delta T\) is the sum Eq.~\ref{ch1:eq:time-actuation}
+of servo acuation time \(\Delta T_\text{servo}\) and the system settling
+time \(\Delta T_\text{settle}\). Servo actuation time is dependent
+Eq.~\ref{ch1:eq:time-servo} on the servo rate and compression distance.
+Settling time is defined Eq.~\ref{ch1:eq:time-settle} as four times the
+reciprical of the neper frequency \(\zeta \omega_0\).
+
+\begin{equation}\protect\hypertarget{ch1:eq:time-actuation}{}{ \Delta T = \Delta T_\text{servo} + \Delta T_\text{settle}   
+}\label{ch1:eq:time-actuation}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:time-servo}{}{ \Delta T_\text{servo} = \Delta x/v = \Delta V_{b,x}/(A\dot{x})   
+}\label{ch1:eq:time-servo}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:time-settle}{}{ \Delta T_\text{settle} := \frac{4}{\zeta \omega_0} = 8\frac{I}{R}   
+}\label{ch1:eq:time-settle}\end{equation}
+
+Minimizing actuation time is an optimization problem. For example,
+settling time can be driven down by increasing resistance at the expense
+of increased back pressure which may require slowing down the servo rate
+increasing servo actuation time.
+
+\hypertarget{ch1:critical-damping-is-unrealistic}{%
+\paragraph{Critical Damping is
+Unrealistic}\label{ch1:critical-damping-is-unrealistic}}
+
+The tube parameters determine the settling time
+(Eq.~\ref{ch1:eq:time-settle}). The settling time only depends on the tube
+diameter (Eq.~\ref{ch1:eq:time-settleb}). A larger diameter tube is desired
+for faster settling time and lower resistance, but large tubes are often
+impractical for robotics applications. The optimal tube length can be
+calculated to create critical damping.
+
+\begin{equation}\protect\hypertarget{ch1:eq:time-settleb}{}{ \Delta T_\text{settle} = 256\frac{\mu}{\rho} \frac{1}{d_t^2}   
+}\label{ch1:eq:time-settleb}\end{equation}
+
+Critical damping where the neper frequency is equal to the natural
+frequency is unrealistic. The system natural frequency is very high due
+to the stiffness of the printed bellows. High bellows stiffness is
+required to to avoid bellows squirm. However, as a result, critical
+damping requires a long skinny tube which has very high resistance. The
+high resistance increases dynamic back pressure making the system
+unworkable. Therefore, we propose an under-damped system. The settling
+time can still be kept low, and the settling oscillations have an
+insignificant effect on output volume.
+
+\hypertarget{ch1:control}{%
+\paragraph{Control}\label{ch1:control}}
+
+The system utilizes open-loop feed-forward control. The servo position
+can be controlled electronically. Motion planning can predict the
+actuator response to any input using the state-model. After servo motion
+the system equalizes to known positions without need for feedback or
+measurement of internal pressure. Underdamped designs may allow the
+output actuator to overshoot the target geometry.
+
+\hypertarget{ch1:system-limits}{%
+\paragraph{System Limits}\label{ch1:system-limits}}
+
+At equilibrium, dynamic pressure \(p_{ba}\) goes to zero and pressure is
+equalized throughout the shared volume of the system. The equalized
+actuator volume \(\Delta V_{a,\text{eq}}\) and therefore final actuator
+geometry and pressure depends (Eq.~\ref{ch1:eq:equalibrium-volume}) on both
+the system \(C\) and bellows \(C_b\) capacitance.
+
+\begin{equation}\protect\hypertarget{ch1:eq:equalibrium-volume}{}{ \Delta V_{a,\text{eq}} = \frac{C}{C_b} A_b x   
+}\label{ch1:eq:equalibrium-volume}\end{equation}
+
+In most cases the bellows capacitance and therefore expansion is
+significantly less than that of the actuator. In this case, system
+capacitance is nearly equal to bellows capacitance resulting in a nearly
+complete transfer of fluid.
+
+The same volume output can be achieved with different bellows
+geometries. However, bellows geometry also affects the pressure limits.
+
+
+\hypertarget{ch1:power-energy-and-efficiency}{%
+\paragraph{Power, Energy, and Efficiency
+}\label{ch1:power-energy-and-efficiency}}
+
+System work \(\mathcal{E}\) goes into actuator pressurization as well as
+bellows radial pressurization, spring compression, and is dissipated by
+fluidic resistance. Dissipated power and therefore efficiency \(e\) is a
+function (Eq.~\ref{ch1:eq:efficiency}) of actuation rate. Additional losses
+may occur through electrical and mechanical systems.
+
+\begin{equation}\protect\hypertarget{ch1:eq:power-input}{}{ \mathcal{P}_\text{in} = F(x) \cdot \dot{x}   
+}\label{ch1:eq:power-input}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:work-in}{}{ \Delta \mathcal{E}_\text{in} = \int F(x) \cdot \dot{x} dx  
+}\label{ch1:eq:work-in}\end{equation}
+\begin{equation}\protect\hypertarget{ch1:eq:efficiency}{}{ e = \frac{ \Delta \mathcal{E}_\text{out} }   
+            { \Delta \mathcal{E}_\text{in} }
+     = \frac{ \Delta \mathcal{E}_a }   
+            { \Delta \mathcal{E}_a   
+            + \Delta \mathcal{E}_b   
+            + \Delta \mathcal{E}_K   
+            + \int \mathcal{P}_R dt }   
+}\label{ch1:eq:efficiency}\end{equation}
+
+Tbl.~\ref{ch1:tbl:final-design} shows the parameters for the proposed test
+engine.
+
+\subsection{Final Design}
+
+
+\hypertarget{ch1:tbl:final-design}{}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4810}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1519}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3671}}@{}}
+\caption{\label{ch1:tbl:final-design}Final proposed design parameters for
+the hydraulic engine}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Units
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Units
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Output Actuator} (FDM Printed) & & \\
+Max volume \(\Delta V_{a,\text{max}}\) & 50.0 & \si{\mL} \\
+Max pressure \(p_{a,\text{max}}\) & 47.0 & \si{\kPa} \\
+Capacitance \(C_a\) & 1.1 & \si{\mL\per\kPa} \\
+\textbf{Linear Servo} (Festo EPCO) & & \\
+Feed Force \(F_\text{max}\) & 105.0 & \si{\newton} \\
+Stroke \(x_\text{max}\) & 100.0 & \si{\mm} \\
+Feed Velocity \(v_\text{max}\) & 500.0 & \si{\mm\per\second} \\
+Feed Acceleration \(a_\text{max}\) & 10000.0 &
+\si{\mm\per\second\squared} \\
+\textbf{Bellows} (FDM Printed) & & \\
+Inner Diameter \(D_i\) & 32.2 & \si{\mm} \\
+Initial Convolution Height \(h_0\) & 12.0 & \si{\mm} \\
+Number of Convolutions \(N\) & 5 & - \\
+Material Thickness \(t\) & 1.62 & \si{\mm} \\
+Convolution Angle \(\theta\) & 90.0 & degree \\
+Overall Bellows Length \(L\) & 60.0 & \si{\mm} \\
+Outer Diameter \(D_o\) & 44.2 & \si{\mm} \\
+Convolution Hypotenuse \(S\) & 8.5 & \si{\mm} \\
+Elastic Modulus \(E\) & 12 & \si{\mega\pascal} \\
+Poisson's ratio \(\nu\) & 0.26 & \\
+Wall-thickness \(t\) & 1.62 & \si{\milli\meter} \\
+% Eff. Area \(A_b\) & 1146084.42 & \si{\mm\squared} \\
+Capacitance \(C_b\) & 0.03 & \si{\mL\per\kPa} \\
+\textbf{Hydraulic Tube} (Plastic) & & \\
+Inner Diameter \(d_t\) & 4.0 & \si{\mm} \\
+Length \(l_t\) & 2.0 & \si{\m} \\
+\textbf{System} & & \\
+Capacitance \(C\) & 0.03 & \si{\mL\per\kPa} \\
+Resistance \(R\) & 0.32 & \si{\kPa\per\mL\s} \\
+Inertance \(I\) & 0.16 & \si{\kPa\per\mL\s\squared} \\
+Nat Freq \(\omega_0\) & 2.20 & \si{\hertz} \\
+Damp. Rat. \(\zeta\) & 0.07 & - \\
+Settling Time \(\Delta T_t\) & 4.0 & \si{\s} \\
+\end{longtable}
+
+
+\hypertarget{ch1:dynamic-tests}{%
+\paragraph{Dynamic Tests}\label{ch1:dynamic-tests}}
+
+Finally, the engine dynamics can be tested using a known actuator.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Set up bellows in test stand w/ hydraulic tube to known actuator
+\item
+  Drive bellows at known velocity/acceleration to full compression
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Measure compression distance.
+  \item
+    Measure bellows internal pressure.
+  \item
+    Measure actuator internal pressure.
+  \item
+    Measure axial force between the servo and bellows .
+  \item
+    Repeat for at different velocity/acceleration
+  \end{enumerate}
+\item
+  Repeat for different actuators and engine designs.
+\end{enumerate}
+
+\begin{figure}%[h]
+\hypertarget{ch1:fig:dynamics-small}{%
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{labtest.png}
+\caption{(LEFT) Theoretical dynamic test results for the proposed engine
+design. (RIGHT) Measured results of a dynamic test using the proposed engine.}\label{ch1:fig:dynamics-small}
+}
+\end{figure}
+
+
+Fig.~\ref{ch1:fig:dynamics-small} shows simulated and measured test results for the proposed engine. The system is very under-damped. However, the proposed
+design remains under the pressure limits and actuates in \SI{5}{\second}
+with a \SI{4}{\second} settling time.
+
+During the settling time, large fluctuations occur in the bellows
+internal pressure. However, the output actuator volume shows much less
+significant fluctuations.
+
+\hypertarget{ch1:conclusion}{%
+\section{Conclusion}\label{ch1:conclusion}}
+
+\hypertarget{ch1:success}{%
+\paragraph{Success}\label{ch1:success}}
+
+The hydraulic drive deployed for multiple dives on two separate
+platforms and controlled a variety of fluidic actuators in lab and sea
+tests. In comparison to previous deep sea hydraulic drives, this design
+performs faster actuation, while using less power in more compact
+package. The drive was deployed on large \gls{ROV} platforms, but its size and
+power requirements will allow deployment on much smaller platforms.
+
+\hypertarget{ch1:conclusions}{%
+\paragraph{Conclusions}\label{ch1:conclusions}}
+
+Tests showed important limitations to the system which can be addressed
+in future research. First, The high flow rates generated by the drive
+were limited by back pressure from viscous and inertial effects, which
+be seen in the delayed response and pressure overshoot seen in the lab
+test results in Fig.~\ref{ch1:fig:dynamics-small} The length and diameter of
+the hydraulic tube is a major factor. Shorter or wider tubes would
+transmit hydraulic flow with less dynamic losses. The dynamic affects
+also make the drive and actuator a second order hydraulic system.
+
+Second, the elastic bellows proved not ideal for converting linear
+motion to flow. Elastic buckling limited the length to diameter ratio of
+the bellows. The higher diameter bellows required higher forces and
+larger electric actuators especially given additional back pressure from
+the dynamic flow affects. Any modifications and guides designed to limit
+buckling added significant friction or undesired complexity to the
+system. Further investigation is required into bellows design or
+alternatives.
+
+At this point, the test results shown are purely theoretical. The
+results are not very promising and suggest a larger engine is required
+to drive actuators of the size. A larger engine would allow for a
+greater feed force limit allowing for wider bellows with higher squirm
+limits. Increasing the overall pressure limit would allow the drive to
+operate faster and overcome the resulting dynamic pressure.
+
+Finally, the drive is designed to efficiently and precisely control a
+single degree of freedom actuator set. An array of drives could allow
+for control of complex actuator sets while serving on relatively compact
+and low power platforms.
+
+\hypertarget{ch1:future-work}{%
+\paragraph{Future Work}\label{ch1:future-work}}
+
+A system prototype was demonstrated in an operational environment.
+However, the design process still requires further laboratory data to be
+considered validated. Additional field-testing should be conducted on
+SWAP-C platforms to further demonstrate effectiveness in the operational
+environment.
+
+We identified the bellows pressure limits as the primary limiting factor
+for actuation rate. Future work should be done to investigate potential
+comparisons between bellows, traditional pistons, and alternative
+solutions such as \gls{LSRD} \cite{gruebele2019long}. Additionally, effort should be made to compare the single stroke linear pump design to rotary pumps.

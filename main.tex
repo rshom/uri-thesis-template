@@ -1,0 +1,105 @@
+\documentclass[phd,digital,hidelinks]{uri}
+\usepackage{hyperref}   % allows internal links
+% load hyperref first avoid compiling twice: 
+%   https://tex.stackexchange.com/questions/1863/which-packages-should-be-loaded-after-hyperref-instead-of-before
+\usepackage{lipsum}
+\usepackage{pdfpages}
+\usepackage{import} 	% simular to include but w/ relative paths
+\usepackage{longtable}
+\usepackage{booktabs}   % required for \toprule
+\usepackage{bookmark} 
+\usepackage[nottoc,numbib]{tocbibind}
+
+\title{The Mystical Tapestry: Unraveling the Secrets of Wizardry and Beyond}
+\author{Merlin Astralbane}
+\program{Magical Studies}
+\gradyear{1899}
+\committee{Seraphina Moonshade, Ignatius Shadowthorn, Morgana Stardust, Elowen Nightshade}
+
+% Set up bibliography
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+\addbibresource{ch1/ref.bib}
+\addbibresource{ch2/ref.bib}
+\addbibresource{ch3/ref.bib}
+\newcommand{\bibliographyname}{List of References}
+
+% Set up glossary and units
+\usepackage[nopostdot,nogroupskip,nonumberlist]{glossaries}
+\makeglossaries
+\renewcommand{\acronymname}{List of Abbreviations}
+\input{glossary}
+
+\setcounter{tocdepth}{1}    % sets how deep table of contents goes
+
+\begin{document}
+\hypersetup{pageanchor=false}
+
+%---------------------- Compile Intro Pages-------------------
+\titlepage
+\signpage
+
+\pagenumbering{roman}   % Roman numeral numbering until chapter 1
+\setcounter{page}{2}    % Abstract starts on ii
+
+\addcontentsline{toc}{chapter}{ABSTRACT}
+\begin{abstract}
+    \input{abstract}
+\end{abstract}
+\clearpage
+\addcontentsline{toc}{chapter}{ACKNOWLEDGMENTS}
+\begin{acknowledgements}
+    \input{acknowledgements.tex}
+\end{acknowledgements}
+
+
+% Table of contents
+\newpage
+\addcontentsline{toc}{chapter}{\contentsname}
+\tableofcontents
+
+\newpage
+% \addcontentsline{toc}{chapter}{LIST OF FIGURES}
+\listoffigures
+
+\newpage
+% \addcontentsline{toc}{chapter}{LIST OF TABLES}
+\listoftables
+
+\newpage
+% \chapter*{\centering\bfseries\normalsize LIST OF ABBREVIATIONS}
+\addcontentsline{toc}{chapter}{\acronymname}
+\printglossary[type=\acronymtype, title={\hfill\normalfont\MakeUppercase\acronymname\hfill\hfill}, toctitle=\acronymname]
+
+% Numerical ordring for the rest of the thesis
+\clearpage
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
+
+%---------------------------------------------------------
+
+%-----------------Compile Chapter Files--------------------
+
+\chapter{The Art of Spellcasting}
+\import{ch1}{body.tex}
+
+\chapter{Potions and Elixirs}
+\import{ch2}{body.tex}
+
+\chapter{Beyond the Veil: Exploring Otherworldly Realms}
+\import{ch3}{body.tex}
+
+
+%---------------------Bib/Appendix------------------------
+\clearpage
+\phantomsection
+% \defbibnote{note}{}
+\addcontentsline{toc}{chapter}{\bibliographyname}
+% \printbibliography[title={\centering\normalsize\normalfont\MakeUppercase{\bibliographyname}},prenote=note]
+\printbibliography[title={\hfill\normalfont\MakeUppercase\bibliographyname\hfill\hfill}]
+
+
+
+%---------------------------------------------------------
+
+\end{document}
+
